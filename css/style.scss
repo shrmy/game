@@ -1,0 +1,16 @@
+$red: #db3340;
+$brown: #e8b71a;
+$white: #f7eac8;
+$green: #1fda9a;
+$blue: #28abe3;
+
+body {
+    background: $white;
+}
+
+canvas {
+    width: 100%;
+    // position: absolute;
+    height: 100%;
+    background: $green;
+}
