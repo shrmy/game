@@ -44,8 +44,8 @@ class GameObject {
     // Draw this object on the screen
     draw() {
         if (this.image){
-            this.master.fillStyle = this.color;
-            this.master.fillRect(this.x, this.y, this.w, this.h);
+            // this.master.fillStyle = this.color;
+            // this.master.fillRect(this.x, this.y, this.w, this.h);
             // this.master.fill();
             var x = 0, y = 0, w = this.w, h = this.h,
                 lpd = 0, rpd = 0, tpd = 0, bpd = 0;
