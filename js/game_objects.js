@@ -1,14 +1,16 @@
 class Player extends GameObject {
     constructor(master, x, y, name, level) {
         super(master, x, y, 66-20, 92-17);
+        this.image_src = "img/sprites/alienPink.png";
+        this.image_src_flipped = "img/sprites/alienPink_flipped.png";
         this.image = new Image();
-        this.image.src = "img/sprites/alienPink.png"
-
+        this.image.src = this.image_src;
 
         this.vx = Math.round(5*(Math.random() - 0.5));
         this.vy = 0;
         this.name = name;
         this.level = level;
+        this.is_flipped = false;
         this.keydown = {
             left: false,
             right: false,
@@ -20,7 +22,7 @@ class Player extends GameObject {
             right: "ArrowRight",
             up: "ArrowUp",
             down: "ArrowDown",
-        }
+        };
     }
     handleKeys(event) {
         if (event.type === "keydown") {
@@ -70,8 +72,10 @@ class Player extends GameObject {
         var MAXV = 5;
         if (this.keydown.left && !this.keydown.down) {
             this.vx = (this.vx+MAXV)*0.9 - MAXV;
+            this.is_flipped = true;
         } else if (this.keydown.right && !this.keydown.down) {
             this.vx = (this.vx-MAXV)*0.9 + MAXV;
+            this.is_flipped = false;
         } else {
             this.vx *= 0.7;
             if (Math.abs(this.vx) < 0.5) this.vx = 0;
@@ -100,6 +104,12 @@ class Player extends GameObject {
             this.vx = 0;
             this.right = this.master.canvas.width;
         }
+        // if (this.vx < 0) {
+        //     this.is_flipped = true;
+        // }
+        // if (this.vx > 0) {
+        //     this.is_flipped = false;
+        // }
 
         var collisions = this.level.collide(this);
         var it = collisions.next();
@@ -125,6 +135,12 @@ class Player extends GameObject {
             this.image_crop = sprite_ani.pink["walk" + (1+Math.round(this.x/20) % 2)];
         } else {
             this.image_crop = sprite_ani.pink.stand2;
+        }
+        if (this.is_flipped) {
+            this.image_crop = sprite_ani.flip(256, this.image_crop);
+            this.image.src = this.image_src_flipped;
+        } else {
+            this.image.src = this.image_src;
         }
         this.y = this.bottom - this.image_crop.h + this.image_crop.tpd + this.image_crop.bpd;
         this.h = this.image_crop.h - this.image_crop.tpd - this.image_crop.bpd;

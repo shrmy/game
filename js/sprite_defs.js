@@ -1,4 +1,16 @@
 var sprite_ani = {
+    flip: function (fullWidth, coordinates) {
+        return {
+            x: fullWidth - coordinates.x - coordinates.w,
+            y: coordinates.y,
+            w: coordinates.w,
+            h: coordinates.h,
+            lpd: coordinates.rpd,
+            rpd: coordinates.lpd,
+            tpd: coordinates.tpd,
+            bpd: coordinates.bpd
+        };
+    },
     pink: {
         stand2: {x: 69,  y: 379, w: 66, h: 92, lpd: 10, rpd: 10, tpd: 17, bpd: 0},
         stand:  {x: 70,  y: 92,  w: 66, h: 92, lpd: 10, rpd: 10, tpd: 17, bpd: 0},
